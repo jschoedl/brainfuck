@@ -5871,153 +5871,6 @@ var $author$project$Main$editorInformation = function (_v0) {
 				]))
 		]);
 };
-var $elm$html$Html$li = _VirtualDom_node('li');
-var $elm$html$Html$a = _VirtualDom_node('a');
-var $elm$html$Html$Attributes$href = function (url) {
-	return A2(
-		$elm$html$Html$Attributes$stringProperty,
-		'href',
-		_VirtualDom_noJavaScriptUri(url));
-};
-var $author$project$Main$link = F2(
-	function (title, shref) {
-		return A2(
-			$elm$html$Html$a,
-			_List_fromArray(
-				[
-					$elm$html$Html$Attributes$href(shref),
-					$elm$html$Html$Attributes$class('link blue')
-				]),
-			_List_fromArray(
-				[
-					$elm$html$Html$text(title)
-				]));
-	});
-var $elm$html$Html$ul = _VirtualDom_node('ul');
-var $author$project$Main$editorIntroduction = _List_fromArray(
-	[
-		A2(
-		$elm$html$Html$p,
-		_List_fromArray(
-			[
-				$elm$html$Html$Attributes$class('mt0 lh-copy')
-			]),
-		_List_fromArray(
-			[
-				A2($author$project$Main$link, 'Brainfuck', 'https://esolangs.org/wiki/Brainfuck'),
-				$elm$html$Html$text(', one of the '),
-				A2($author$project$Main$link, 'esoteric programming languages', 'https://esolangs.org/wiki/Esoteric_programming_language'),
-				$elm$html$Html$text(' you’ve probably heard of. Partly because of its minimal instruction set but most likely because it has the word '),
-				A2(
-				$elm$html$Html$span,
-				_List_fromArray(
-					[
-						$elm$html$Html$Attributes$class('i')
-					]),
-				_List_fromArray(
-					[
-						$elm$html$Html$text('fuck')
-					])),
-				$elm$html$Html$text(' in its name. That said this language doesn’t have to leave you thinking '),
-				A2(
-				$elm$html$Html$span,
-				_List_fromArray(
-					[
-						$elm$html$Html$Attributes$class('i')
-					]),
-				_List_fromArray(
-					[
-						$elm$html$Html$text('wtf?')
-					])),
-				$elm$html$Html$text('. My intention for building this Brainfuck debugger is to have a tool for learning this language and do it in a visual way, where you can see what your program is doing step by step.')
-			])),
-		A2(
-		$elm$html$Html$p,
-		_List_fromArray(
-			[
-				$elm$html$Html$Attributes$class('lh-copy')
-			]),
-		_List_fromArray(
-			[
-				$elm$html$Html$text('Besides this text you’ll see buttons you can use to execute your program, which can be done in continuation or one command at a time, and as your program is running you can slide the range input field to alter the speed at which the code runs. Below those controls you’ll notice a table filled with 0’s (at least before you run a program), this is the internal memory. And finally your code editor, where you can set breakpoints by clicking on commands that will halt your program’s execution. Now for a quick introduction to the language: ')
-			])),
-		A2(
-		$elm$html$Html$ul,
-		_List_fromArray(
-			[
-				$elm$html$Html$Attributes$class('pl4 lh-copy')
-			]),
-		_List_fromArray(
-			[
-				A2(
-				$elm$html$Html$li,
-				_List_Nil,
-				_List_fromArray(
-					[
-						$author$project$Main$mono('<'),
-						$elm$html$Html$text(' and '),
-						$author$project$Main$mono('>'),
-						$elm$html$Html$text(' move the pointer to the left and to the right. Keep an on the memory cells to the right -- the cell that has a black background color is the active cell and the one where increment, decrement, and loops will act on or check.')
-					])),
-				A2(
-				$elm$html$Html$li,
-				_List_fromArray(
-					[
-						$elm$html$Html$Attributes$class('pt2')
-					]),
-				_List_fromArray(
-					[
-						$author$project$Main$mono('+'),
-						$elm$html$Html$text(' and '),
-						$author$project$Main$mono('-'),
-						$elm$html$Html$text(' increment and decrement the active cell. Note that incrementing above 255 will ‘wrap’ the value back around to 0, and decrementing below 0 will take you to 255.')
-					])),
-				A2(
-				$elm$html$Html$li,
-				_List_fromArray(
-					[
-						$elm$html$Html$Attributes$class('pt2')
-					]),
-				_List_fromArray(
-					[
-						$author$project$Main$mono('['),
-						$elm$html$Html$text(' and '),
-						$author$project$Main$mono(']'),
-						$elm$html$Html$text(' are the language’s only control flow operators. The code inside of the loop is ran as long as that value of the active cell is not zero. Think of it as a '),
-						$author$project$Main$mono('while (ptr != 0) {}'),
-						$elm$html$Html$text(' loop.')
-					])),
-				A2(
-				$elm$html$Html$li,
-				_List_fromArray(
-					[
-						$elm$html$Html$Attributes$class('pt2')
-					]),
-				_List_fromArray(
-					[
-						$author$project$Main$mono('.'),
-						$elm$html$Html$text(' and '),
-						$author$project$Main$mono(','),
-						$elm$html$Html$text(' are the io functions. A period will output the character associated with the '),
-						A2($author$project$Main$link, 'ASCII', 'https://en.wikipedia.org/wiki/ASCII'),
-						$elm$html$Html$text(' in the active cell (so if the active cell has a value of 97 and you output its value, you should get an ‘a’.) You\'ll notice an input field labeled as `input`. This is where you can predefine the input for your program and if this is empty, the editor will prompt for the input intead.')
-					]))
-			])),
-		A2(
-		$elm$html$Html$p,
-		_List_fromArray(
-			[
-				$elm$html$Html$Attributes$class('lh-copy')
-			]),
-		_List_fromArray(
-			[
-				$elm$html$Html$text('So play around with this tool. Start by running the sample code or creating basic programs on your own and see for yourself how with even the most basic control flow and altering commands you can technically accomplish any task. If you’re curious about the code and the interpreter that are running on this page, '),
-				A2($author$project$Main$link, 'go here', 'https://github.com/minond/brainfuck'),
-				$elm$html$Html$text(', and if you’d like to learn more about Brainfuck and other really interesting esoteric programming languages then I recommend heading over to '),
-				A2($author$project$Main$link, 'Esolang', 'https://esolangs.org/wiki/Main_Page'),
-				$elm$html$Html$text('.')
-			]))
-	]);
 var $elm$core$Tuple$second = function (_v0) {
 	var y = _v0.b;
 	return y;
@@ -6397,7 +6250,17 @@ var $author$project$Main$view = function (model) {
 							[
 								$elm$html$Html$Attributes$class('fl w-100 w-50-ns editor-section')
 							]),
-						$author$project$Main$editorIntroduction),
+						_List_fromArray(
+							[
+								A2(
+								$elm$html$Html$section,
+								_List_Nil,
+								$author$project$Main$editorMemory(model)),
+								A2(
+								$elm$html$Html$section,
+								_List_Nil,
+								$author$project$Main$editorProgram(model))
+							])),
 						A2(
 						$elm$html$Html$div,
 						_List_fromArray(
@@ -6421,15 +6284,11 @@ var $author$project$Main$view = function (model) {
 								A2(
 								$elm$html$Html$section,
 								_List_Nil,
-								$author$project$Main$editorProgram(model)),
-								A2(
-								$elm$html$Html$section,
-								_List_Nil,
 								$author$project$Main$editorInformation(model))
 							]))
 					]))
 			]),
-		title: 'random title'
+		title: 'Brainfuck'
 	};
 };
 var $author$project$Main$main = function () {
