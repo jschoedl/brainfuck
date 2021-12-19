@@ -48,7 +48,7 @@
     }
 
     .container {
-      max-width: 75rem;
+      max-width: 95rem;
       margin: 0 auto;
       box-sizing: content-box;
     }
@@ -121,6 +121,11 @@
       color: #b5bac8;
     }
 
+    /* auto-resize the code window */
+    .CodeMirror-scroll {
+      height: min-content;
+    }
+
     .CodeMirror span.breakpoint.active,
     .CodeMirror span.active {
       background-color: black;
@@ -145,7 +150,7 @@
       cursor: text;
       border: 1px solid #c0c0c0;
       outline: 0;
-      height: 300px;
+      height: min-content;
       overflow: hidden;
       font-family: monospace;
       padding: .75rem;
