@@ -209,9 +209,7 @@ view model =
         [ editorTitle
         , div
             [ class "fl w-100 w-50-ns editor-section" ]
-            [ section [] <| editorMemory model
-            , section [] <| editorProgram model
-            ]
+            [ section [] <| editorProgram model ]
         , div
             [ class "fl w-100 w-50-ns editor-section" ]
             [ section [] <| editorControls model
@@ -332,10 +330,10 @@ editorControls { delay } =
         , lbl "Kommandozentrale"
         , div
             [ class "mb2" ]
-            [ btn [ onClick Run ] "Run"
-            , btn [ onClick Pause ] "Pause"
-            , btn [ onClick Step ] "Step"
-            , btn [ onClick Continue ] "Continue"
+            [ btn [ onClick Run ] "Start"
+            , btn [ onClick Pause ] "Anhalten"
+            , btn [ onClick Step ] "Schritt"
+            , btn [ onClick Continue ] "Fortsetzen"
             ]
         ]
 

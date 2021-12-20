@@ -5672,28 +5672,28 @@ var $author$project$Main$editorControls = function (_v0) {
 						[
 							$elm$html$Html$Events$onClick($author$project$Main$Run)
 						]),
-					'Run'),
+					'Start'),
 					A2(
 					$author$project$Main$btn,
 					_List_fromArray(
 						[
 							$elm$html$Html$Events$onClick($author$project$Main$Pause)
 						]),
-					'Pause'),
+					'Anhalten'),
 					A2(
 					$author$project$Main$btn,
 					_List_fromArray(
 						[
 							$elm$html$Html$Events$onClick($author$project$Main$Step)
 						]),
-					'Step'),
+					'Schritt'),
 					A2(
 					$author$project$Main$btn,
 					_List_fromArray(
 						[
 							$elm$html$Html$Events$onClick($author$project$Main$Continue)
 						]),
-					'Continue')
+					'Fortsetzen')
 				]))
 		]);
 };
@@ -6252,10 +6252,6 @@ var $author$project$Main$view = function (model) {
 							]),
 						_List_fromArray(
 							[
-								A2(
-								$elm$html$Html$section,
-								_List_Nil,
-								$author$project$Main$editorMemory(model)),
 								A2(
 								$elm$html$Html$section,
 								_List_Nil,
