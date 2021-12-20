@@ -204,7 +204,7 @@ update message model =
 
 view : Model -> Document Msg
 view model =
-    { title = "Brainfuck"
+    { title = "Brainf🌲ck"
     , body= [div [ class "cf pa3 pa4-ns container helvetica" ]
         [ editorTitle
         , div
@@ -297,7 +297,7 @@ editorControls { delay } =
             Json.map (\s -> SetProgram s) <|
                 Json.at [ "target", "value" ] Json.string
     in
-        [ lbl "Load a program"
+        [ lbl "Wunschliste laden"
         , select
             [ class "w-50 mb3"
             , on "change" setProgram
@@ -321,7 +321,7 @@ editorControls { delay } =
                 []
                 [ text "random.bf" ]
             ]
-        , lbl ("Change evaluation delay (" ++ toString delay ++ ")")
+        , lbl ("Wartedauer nach jeder Aktion: " ++ toString (delay*10) ++ " ms")
         , input
             [ class "w-50 mb3"
             , type_ "range"
@@ -329,7 +329,7 @@ editorControls { delay } =
             , value (toString delay)
             ]
             []
-        , lbl "Program controls"
+        , lbl "Kommandozentrale"
         , div
             [ class "mb2" ]
             [ btn [ onClick Run ] "Run"
@@ -349,7 +349,7 @@ editorOutput model =
         [ div
             [ class "mt3" ]
             []
-        , lbl "Input"
+        , lbl "gespendete Geschenke"
         , div
             [ class "pb2 mb2" ]
             [ input
@@ -359,7 +359,7 @@ editorOutput model =
                 ]
                 []
             ]
-        , lbl "Output"
+        , lbl "geklaute Geschenke"
         , div
             [ class "pb2 mb2" ]
             [ mono output_ ]
@@ -386,7 +386,7 @@ editorTitle : Html Msg
 editorTitle =
     h1
         [ class "mt0 f3 f2-m f1-l title fw1 baskerville" ]
-        [ text "Brainfuck" ]
+        [ text "Brainf🌲ck" ]
 
 
 editorMemory : Model -> List (Html Msg)
@@ -424,7 +424,7 @@ editorMemory { memory, pointer } =
                 div [ class "cellrow" ]
                     (List.indexedMap (asCell index) vals)
     in
-        [ lbl "Program memory"
+        [ lbl "Geschenkelager"
         , div [ class "mb3" ] <|
             List.indexedMap asRow <|
                 greedyGroupsOf pageSize padded
@@ -456,29 +456,29 @@ editorInformation { program, output_, idx, steps } =
         outputMessage =
             case output_ of
                 Nothing ->
-                    text "The program has had no output yet."
+                    text "Du bist scheinbar ehrlich und hast noch keine Kekse geklaut."
 
                 Just str ->
                     span
                         []
-                        [ text "Output length is "
+                        [ text "Du hast "
                         , mono <| toString <| String.length str
-                        , text " characters long."
+                        , text " Geschenke geklaut."
                         ]
     in
         [ p
             [ class "lh-copy" ]
-            [ text "Here’s some information about your program: it is "
+            [ text "Deine Wunschliste hat "
             , mono <| toString programSize
-            , text " bytes, "
+            , text " Zeichen, darin enthalten sind "
             , mono <| toString codeSize
-            , text " of which are valid commands. The interpreter is going to interpret the character at index "
+            , text " gültige Anweisungen. Die nächste Anweisung steht an Position "
             , mono <| toString idx
-            , text ", which is "
+            , text " und lautet "
             , mono opt
-            , text ", and has taken a total of "
+            , text ". Bisher hast du "
             , mono <| toString steps
-            , text " steps so far. "
+            , text " Aktionen durchgeführt. "
             , outputMessage
             ]
         ]

@@ -5591,7 +5591,7 @@ var $author$project$Main$editorControls = function (_v0) {
 			$elm$json$Json$Decode$string));
 	return _List_fromArray(
 		[
-			$author$project$Main$lbl('Load a program'),
+			$author$project$Main$lbl('Wunschliste laden'),
 			A2(
 			$elm$html$Html$select,
 			_List_fromArray(
@@ -5645,7 +5645,7 @@ var $author$project$Main$editorControls = function (_v0) {
 						]))
 				])),
 			$author$project$Main$lbl(
-			'Change evaluation delay (' + ($elm$core$Debug$toString(delay) + ')')),
+			'Wartedauer nach jeder Aktion: ' + ($elm$core$Debug$toString(delay * 10) + ' ms')),
 			A2(
 			$elm$html$Html$input,
 			_List_fromArray(
@@ -5657,7 +5657,7 @@ var $author$project$Main$editorControls = function (_v0) {
 					$elm$core$Debug$toString(delay))
 				]),
 			_List_Nil),
-			$author$project$Main$lbl('Program controls'),
+			$author$project$Main$lbl('Kommandozentrale'),
 			A2(
 			$elm$html$Html$div,
 			_List_fromArray(
@@ -5813,7 +5813,7 @@ var $author$project$Main$editorInformation = function (_v0) {
 	var programSize = $elm$core$String$length(program);
 	var outputMessage = function () {
 		if (output_.$ === 'Nothing') {
-			return $elm$html$Html$text('The program has had no output yet.');
+			return $elm$html$Html$text('Du bist scheinbar ehrlich und hast noch keine Kekse geklaut.');
 		} else {
 			var str = output_.a;
 			return A2(
@@ -5821,11 +5821,11 @@ var $author$project$Main$editorInformation = function (_v0) {
 				_List_Nil,
 				_List_fromArray(
 					[
-						$elm$html$Html$text('Output length is '),
+						$elm$html$Html$text('Du hast '),
 						$author$project$Main$mono(
 						$elm$core$Debug$toString(
 							$elm$core$String$length(str))),
-						$elm$html$Html$text(' characters long.')
+						$elm$html$Html$text(' Geschenke geklaut.')
 					]));
 		}
 	}();
@@ -5852,21 +5852,21 @@ var $author$project$Main$editorInformation = function (_v0) {
 				]),
 			_List_fromArray(
 				[
-					$elm$html$Html$text('Here’s some information about your program: it is '),
+					$elm$html$Html$text('Deine Wunschliste hat '),
 					$author$project$Main$mono(
 					$elm$core$Debug$toString(programSize)),
-					$elm$html$Html$text(' bytes, '),
+					$elm$html$Html$text(' Zeichen, darin enthalten sind '),
 					$author$project$Main$mono(
 					$elm$core$Debug$toString(codeSize)),
-					$elm$html$Html$text(' of which are valid commands. The interpreter is going to interpret the character at index '),
+					$elm$html$Html$text(' gültige Anweisungen. Die nächste Anweisung steht an Position '),
 					$author$project$Main$mono(
 					$elm$core$Debug$toString(idx)),
-					$elm$html$Html$text(', which is '),
+					$elm$html$Html$text(' und lautet '),
 					$author$project$Main$mono(opt),
-					$elm$html$Html$text(', and has taken a total of '),
+					$elm$html$Html$text('. Bisher hast du '),
 					$author$project$Main$mono(
 					$elm$core$Debug$toString(steps)),
-					$elm$html$Html$text(' steps so far. '),
+					$elm$html$Html$text(' Aktionen durchgeführt. '),
 					outputMessage
 				]))
 		]);
@@ -6121,7 +6121,7 @@ var $author$project$Main$editorMemory = function (_v0) {
 		});
 	return _List_fromArray(
 		[
-			$author$project$Main$lbl('Program memory'),
+			$author$project$Main$lbl('Geschenkelager'),
 			A2(
 			$elm$html$Html$div,
 			_List_fromArray(
@@ -6149,7 +6149,7 @@ var $author$project$Main$editorOutput = function (model) {
 					$elm$html$Html$Attributes$class('mt3')
 				]),
 			_List_Nil),
-			$author$project$Main$lbl('Input'),
+			$author$project$Main$lbl('gespendete Geschenke'),
 			A2(
 			$elm$html$Html$div,
 			_List_fromArray(
@@ -6168,7 +6168,7 @@ var $author$project$Main$editorOutput = function (model) {
 						]),
 					_List_Nil)
 				])),
-			$author$project$Main$lbl('Output'),
+			$author$project$Main$lbl('geklaute Geschenke'),
 			A2(
 			$elm$html$Html$div,
 			_List_fromArray(
@@ -6228,7 +6228,7 @@ var $author$project$Main$editorTitle = A2(
 		]),
 	_List_fromArray(
 		[
-			$elm$html$Html$text('Brainfuck')
+			$elm$html$Html$text('Brainf🌲ck')
 		]));
 var $elm$html$Html$section = _VirtualDom_node('section');
 var $author$project$Main$view = function (model) {
@@ -6288,7 +6288,7 @@ var $author$project$Main$view = function (model) {
 							]))
 					]))
 			]),
-		title: 'Brainfuck'
+		title: 'Brainf🌲ck'
 	};
 };
 var $author$project$Main$main = function () {
