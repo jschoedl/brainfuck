@@ -1,9 +1,13 @@
 <!DOCTYPE html>
-<!--[if lt IE 7]>      <html class="browser-ie7 lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
-<!--[if IE 7]>         <html class="browser-ie8 lt-ie9 lt-ie8"> <![endif]-->
-<!--[if IE 8]>         <html class="browser-ie9 lt-ie9"> <![endif]-->
-<!--[if gt IE 8]><!--> <html class="browser-modern"> <!--<![endif]-->
-  <head>
+<!--[if lt IE 7]>
+<html class="browser-ie7 lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>
+<html class="browser-ie8 lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>
+<html class="browser-ie9 lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!-->
+<html class="browser-modern"> <!--<![endif]-->
+<head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title>Brainfuck</title>
@@ -14,515 +18,510 @@
     <meta name="theme-color" content="#ffffff">
     <meta name="og:site_name" content="Marcos Minond">
     <meta name="og:title" content="Marcos Minond">
-    <meta name="og:description" content="Brainfuck interpreter and debugger. Runs your code while displaying information about the program and allows you to set break-points in your code as well.">
-    <meta name="description" content="Brainfuck interpreter and debugger. Runs your code while displaying information about the program and allows you to set break-points in your code as well.">
+    <meta name="og:description"
+          content="Brainfuck interpreter and debugger. Runs your code while displaying information about the program and allows you to set break-points in your code as well.">
+    <meta name="description"
+          content="Brainfuck interpreter and debugger. Runs your code while displaying information about the program and allows you to set break-points in your code as well.">
     <meta name="referrer" content="origin">
 
     <style>
-    @import url('https://fonts.googleapis.com/css?family=Spectral');
+        @import url('https://fonts.googleapis.com/css?family=Spectral');
 
-    body {
-      cursor: default;
-      margin: 0;
-    }
+        body {
+            cursor: default;
+            margin: 0;
+        }
 
-    pre {
-      margin: 0;
-    }
+        pre {
+            margin: 0;
+        }
 
-    textarea {
-      opacity: 0;
-      min-height: 400px;
-    }
+        textarea {
+            opacity: 0;
+            min-height: 400px;
+        }
 
-    .spectral {
-      font-family: 'Spectral', serif;
-    }
+        .spectral {
+            font-family: 'Spectral', serif;
+        }
 
-    .helvetica {
-      letter-spacing: .7px;
-    }
+        .helvetica {
+            letter-spacing: .7px;
+        }
 
-    .monospace {
-      font-family: Consolas,monaco,monospace;
-    }
+        .monospace {
+            font-family: Consolas, monaco, monospace;
+        }
 
-    .container {
-      max-width: 95rem;
-      margin: 0 auto;
-      box-sizing: content-box;
-    }
+        .container {
+            max-width: 95rem;
+            margin: 0 auto;
+            box-sizing: content-box;
+        }
 
-    .editor-section {
-      box-sizing: border-box;
-    }
+        .editor-section {
+            box-sizing: border-box;
+        }
 
-    .cellrow {
-      font-size: 0;
-      max-width: 30rem;
-    }
+        .cellrow {
+            font-size: 0;
+            max-width: 30rem;
+        }
 
-    .cellrow:not(:first-child) .memcell {
-      border-top: 0;
-    }
+        .cellrow:not(:first-child) .memcell {
+            border-top: 0;
+        }
 
-    .memcell {
-      font-size: 1rem;
-      border-bottom: 1px solid #c0c0c0;
-      border-right: 1px solid #c0c0c0;
-      border-top: 1px solid #c0c0c0;
-      box-sizing: border-box;
-      display: inline-block;
-      font-family: monospace;
-      height: 0;
-      padding-bottom: 10%;
-      text-align: center;
-      width: 10%;
-      position: relative;
-      transition: color .2s, background-color .2s;
-    }
+        .memcell {
+            font-size: 1rem;
+            border-bottom: 1px solid #c0c0c0;
+            border-right: 1px solid #c0c0c0;
+            border-top: 1px solid #c0c0c0;
+            box-sizing: border-box;
+            display: inline-block;
+            font-family: monospace;
+            height: 0;
+            padding-bottom: 10%;
+            text-align: center;
+            width: 10%;
+            position: relative;
+            transition: color .2s, background-color .2s;
+        }
 
-    .memcell:first-child {
-      border-left: 1px solid #c0c0c0;
-    }
+        .memcell:first-child {
+            border-left: 1px solid #c0c0c0;
+        }
 
-    .memcell span {
-      left: 50%;
-      position: absolute;
-      top: 50%;
-      transform: translateX(-50%) translateY(-50%);
-    }
+        .memcell span {
+            left: 50%;
+            position: absolute;
+            top: 50%;
+            transform: translateX(-50%) translateY(-50%);
+        }
 
-    .memcell.selected {
-      background-color: black;
-      color: white;
-    }
+        .memcell.selected {
+            background-color: black;
+            color: white;
+        }
 
-    /* gt/lt/open/close */
-    .cm-s-custom span.cm-atom,
-    .cm-s-custom span.cm-bracket {
-      color: #229efc;
-    }
+        /* gt/lt/open/close */
+        .cm-s-custom span.cm-atom,
+        .cm-s-custom span.cm-bracket {
+            color: #229efc;
+        }
 
-    /* period/comma */
-    .cm-s-custom span.cm-def {
-      color: #6a3bfb;
-    }
+        /* period/comma */
+        .cm-s-custom span.cm-def {
+            color: #6a3bfb;
+        }
 
-    /* plus/minus */
-    .cm-s-custom span.cm-keyword {
-      line-height: 1em;
-      font-weight: bold;
-      color: #fd8f34;
-    }
+        /* plus/minus */
+        .cm-s-custom span.cm-keyword {
+            line-height: 1em;
+            font-weight: bold;
+            color: #fd8f34;
+        }
 
-    /* comment */
-    .cm-s-custom span.cm-comment {
-      color: #b5bac8;
-    }
+        /* comment */
+        .cm-s-custom span.cm-comment {
+            color: #b5bac8;
+        }
 
-    /* auto-resize the code window */
-    .CodeMirror-scroll {
-      height: min-content;
-      min-height: 400px;
-    }
+        /* auto-resize the code window */
+        .CodeMirror-scroll {
+            height: min-content;
+            min-height: 400px;
+        }
 
-    .CodeMirror span.breakpoint.active,
-    .CodeMirror span.active {
-      background-color: black;
-      color: white;
-    }
+        .CodeMirror span.breakpoint.active,
+        .CodeMirror span.active {
+            background-color: black;
+            color: white;
+        }
 
-    .CodeMirror span.cm-keyword:hover,
-    .CodeMirror span.cm-bracket:hover,
-    .CodeMirror span.cm-def:hover,
-    .CodeMirror span.cm-atom:hover,
-    .CodeMirror span.breakpoint {
-      cursor: pointer;
-      background-color: #ff5252;
-      color: #fff;
-    }
+        .CodeMirror span.cm-keyword:hover,
+        .CodeMirror span.cm-bracket:hover,
+        .CodeMirror span.cm-def:hover,
+        .CodeMirror span.cm-atom:hover,
+        .CodeMirror span.breakpoint {
+            cursor: pointer;
+            background-color: #ff5252;
+            color: #fff;
+        }
 
-    .CodeMirror {
-      display: block;
-      min-height: 400px;
-      margin: 0;
-      font-size: 1rem;
-      cursor: text;
-      border: 1px solid #c0c0c0;
-      outline: 0;
-      height: min-content;
-      overflow: hidden;
-      font-family: monospace;
-      padding: .75rem;
-    }
+        .CodeMirror {
+            display: block;
+            min-height: 400px;
+            margin: 0;
+            font-size: 1rem;
+            cursor: text;
+            border: 1px solid #c0c0c0;
+            outline: 0;
+            height: min-content;
+            overflow: hidden;
+            font-family: monospace;
+            padding: .75rem;
+        }
 
-    /* small */
-    @media screen and (min-width: 45em) {
-    }
+        /* small */
+        @media screen and (min-width: 45em) {
+        }
 
-    /* not small?? */
-    @media screen and (min-width: 45em) {
-    }
+        /* not small?? */
+        @media screen and (min-width: 45em) {
+        }
 
-    /* medium */
-    @media screen and (min-width: 45em) and (max-width: 60em) {
-      .editor-section:first-of-type {
-        padding-right: 1rem;
-      }
-    }
+        /* medium */
+        @media screen and (min-width: 45em) and (max-width: 60em) {
+            .editor-section:first-of-type {
+                padding-right: 1rem;
+            }
+        }
 
-    /* large */
-    @media screen and (min-width: 60em) {
-      .editor-section:first-of-type {
-        padding-right: 1.5rem;
-      }
+        /* large */
+        @media screen and (min-width: 60em) {
+            .editor-section:first-of-type {
+                padding-right: 1.5rem;
+            }
 
-      .editor-section + .editor-section {
-        padding-left: 1.5rem;
-      }
-    }
+            .editor-section + .editor-section {
+                padding-left: 1.5rem;
+            }
+        }
 
-    /* snow */
-    canvas{
-      position:absolute;top:0;left:0;
-      z-index: -1;
-      width: 100%;
-      height: 100%;
-    }
+        /* snow */
+        canvas {
+            position: absolute;
+            top: 0;
+            left: 0;
+            z-index: -1;
+            width: 100%;
+            height: 100%;
+        }
 
-    .w-50, .mb3, .pointer {
-      z-index: 2;
-      position: relative;
-    }
+        .w-50, .mb3, .pointer {
+            z-index: 2;
+            position: relative;
+        }
     </style>
-  </head>
-  <body>
-    <section id="view"></section>
-    <script src="build/main.js"></script>
-    <script src="vendor/node-process/browser.js"></script>
-    <script src="vendor/codemirror/codemirror.js"></script>
-    <script src="vendor/codemirror/brainfuck.js"></script>
-    <script src="vendor/requirejs/require.js"></script>
-    <script>
-    const app = Elm.Main.init({ node: document.getElementById('view') });
+</head>
+<body>
+<section id="view"></section>
+<script src="build/main.js"></script>
+<script src="vendor/node-process/browser.js"></script>
+<script src="vendor/codemirror/codemirror.js"></script>
+<script src="vendor/codemirror/brainfuck.js"></script>
+<script src="vendor/requirejs/require.js"></script>
+<script>
+    const app = Elm.Main.init({node: document.getElementById('view')});
 
     requirejs([
-      'vendor/embeddable-interpreters/common.js',
-      'vendor/embeddable-interpreters/brainfuck.js'
+        'vendor/embeddable-interpreters/common.js',
+        'vendor/embeddable-interpreters/brainfuck.js'
     ], function (common, bf) {
-      var EDITOR_TOKENS = '.cm-keyword, .cm-bracket, .cm-def, .cm-atom';
+        var EDITOR_TOKENS = '.cm-keyword, .cm-bracket, .cm-def, .cm-atom';
 
-      var tick, cont, timer, speed, breakpoints, editor;
+        var tick, cont, timer, speed, breakpoints, editor;
 
-      speed = 1000 * 10 / 100;
-      breakpoints = [];
-      app.ports.cmd.subscribe(cmd);
+        speed = 1000 * 10 / 100;
+        breakpoints = [];
+        app.ports.cmd.subscribe(cmd);
 
-      function cmd(args) {
-        var cmd = args[0],
-          runtime = args[1];
+        function cmd(args) {
+            var cmd = args[0],
+                runtime = args[1];
 
-        switch (cmd) {
-        case "speed":
-          speed = runtime.speed || 1;
-          break;
+            switch (cmd) {
+                case "speed":
+                    speed = runtime.speed || 1;
+                    break;
 
-        case "init":
-          if (editor) {
-            return;
-          }
+                case "init":
+                    if (editor) {
+                        return;
+                    }
 
-          if (runtime) {
-            speed = runtime.speed || 1;
-          }
+                    if (runtime) {
+                        speed = runtime.speed || 1;
+                    }
 
-          editor = CodeMirror.fromTextArea(document.querySelector('textarea'), {
-            flattenSpans: false,
-            mode: 'brainfuck',
-            theme: 'custom',
-          });
+                    editor = CodeMirror.fromTextArea(document.querySelector('textarea'), {
+                        flattenSpans: false,
+                        mode: 'brainfuck',
+                        theme: 'custom',
+                    });
 
-          editor.on('change', function () {
-            stop();
-            app.ports.unload.send(editor.getValue());
-          });
+                    editor.on('change', function () {
+                        stop();
+                        app.ports.unload.send(editor.getValue());
+                    });
 
-          editor.getWrapperElement().addEventListener('click', function (ev) {
-            if (ev.target.matches(EDITOR_TOKENS)) {
-              var elems = document.querySelectorAll(EDITOR_TOKENS);
-              var index = [].indexOf.call(elems, ev.target);
+                    editor.getWrapperElement().addEventListener('click', function (ev) {
+                        if (ev.target.matches(EDITOR_TOKENS)) {
+                            var elems = document.querySelectorAll(EDITOR_TOKENS);
+                            var index = [].indexOf.call(elems, ev.target);
 
-              if (index >= 0) {
-                app.ports.breakpoint.send(index);
+                            if (index >= 0) {
+                                app.ports.breakpoint.send(index);
 
-                if (ev.target.classList.contains('breakpoint')) {
-                  ev.target.classList.remove('breakpoint');
-                  breakpoints = breakpoints.filter(function (pos) {
-                    return pos !== index;
-                  });
-                } else {
-                  ev.target.classList.add('breakpoint');
-                  breakpoints.push(index);
+                                if (ev.target.classList.contains('breakpoint')) {
+                                    ev.target.classList.remove('breakpoint');
+                                    breakpoints = breakpoints.filter(function (pos) {
+                                        return pos !== index;
+                                    });
+                                } else {
+                                    ev.target.classList.add('breakpoint');
+                                    breakpoints.push(index);
+                                }
+                            }
+                        }
+                    });
+                    break;
+
+                case "load":
+                    stop();
+
+                    if (runtime) {
+                        editor.setValue(runtime.program);
+                    }
+
+                    break;
+
+                case "start":
+                    if (runtime) {
+                        run(runtime);
+                        cont = true;
+                        onTimer();
+                    }
+
+                    break;
+
+                case "step":
+                    if (tick) {
+                        cont = false;
+                        tick();
+                    } else if (runtime) {
+                        run(runtime);
+                    }
+                    break;
+
+                case "pause":
+                    cont = false;
+                    break;
+
+                case "continue":
+                    cont = true;
+                    onTimer()
+
+                    break;
+            }
+        }
+
+        function onTimer() {
+            if (timer) {
+                clearTimeout(timer);
+            }
+
+            if (tick) {
+                tick();
+
+                if (cont) {
+                    timer = setTimeout(onTimer, speed);
                 }
-              }
             }
-          });
-          break;
-
-        case "load":
-          stop();
-
-          if (runtime) {
-            editor.setValue(runtime.program);
-          }
-
-          break;
-
-        case "start":
-          if (runtime) {
-            run(runtime);
-            cont = true;
-            onTimer();
-          }
-
-          break;
-
-        case "step":
-          if (tick) {
-            cont = false;
-            tick();
-          } else if (runtime) {
-            run(runtime);
-          }
-          break;
-
-        case "pause":
-          cont = false;
-          break;
-
-        case "continue":
-          cont = true;
-          onTimer()
-
-          break;
-        }
-      }
-
-      function onTimer() {
-        if (timer) {
-          clearTimeout(timer);
         }
 
-        if (tick) {
-          tick();
+        function stop() {
+            if (timer) {
+                clearTimeout(timer);
+            }
 
-          if (cont) {
-            timer = setTimeout(onTimer, speed);
-          }
-        }
-      }
-
-      function stop() {
-        if (timer) {
-          clearTimeout(timer);
-        }
-
-        tick = null;
-      }
-
-      function run(runtime) {
-        console.log(runtime, runtime.input)
-        breakpoints = runtime.breakpoints;
-        var readBuffer = new common.ReadBuffer(runtime.input);
-
-        bf.exec(runtime.program.replace(/[^\+\-\,\.\<\>\[\]]/g, ''), {
-          tick: function (_tick, update, state) {
             tick = null;
+        }
 
-            var memory = [];
+        function run(runtime) {
+            console.log(runtime, runtime.input)
+            breakpoints = runtime.breakpoints;
+            var readBuffer = new common.ReadBuffer(runtime.input);
 
-            for (var i = 0, len = state.memory.length; i < len; i++) {
-              memory[i] = state.memory[i] || 0;
-            }
+            bf.exec(runtime.program.replace(/[^\+\-\,\.\<\>\[\]]/g, ''), {
+                tick: function (_tick, update, state) {
+                    tick = null;
 
-            for (var i = 0, len = breakpoints.length; i < len; i++) {
-              breakpoints[i] = breakpoints[i] || 0;
-            }
+                    var memory = [];
 
-            app.ports.tick.send({
-              pointer: state.pointer,
-              idx: state.idx,
-              steps: state.steps,
-              memory: memory,
-            });
+                    for (var i = 0, len = state.memory.length; i < len; i++) {
+                        memory[i] = state.memory[i] || 0;
+                    }
 
-            // highlight active optcode
-            var last = document.querySelector('.active');
-            if (last) {
-              last.classList.remove('active');
-            }
+                    for (var i = 0, len = breakpoints.length; i < len; i++) {
+                        breakpoints[i] = breakpoints[i] || 0;
+                    }
 
-            var active = document.querySelectorAll(EDITOR_TOKENS)[state.idx]
-            if (active) {
-              active.classList.add('active');
-            }
+                    app.ports.tick.send({
+                        pointer: state.pointer,
+                        idx: state.idx,
+                        steps: state.steps,
+                        memory: memory,
+                    });
 
-            if (breakpoints.indexOf(state.idx + 1) >= 0) {
-              cmd(["pause"]);
-            }
+                    // highlight active optcode
+                    var last = document.querySelector('.active');
+                    if (last) {
+                        last.classList.remove('active');
+                    }
 
-            tick = _tick;
-          },
+                    var active = document.querySelectorAll(EDITOR_TOKENS)[state.idx]
+                    if (active) {
+                        active.classList.add('active');
+                    }
 
-          write: function (str) {
-            app.ports.output.send(str);
-            console.log(str);
-          },
+                    if (breakpoints.indexOf(state.idx + 1) >= 0) {
+                        cmd(["pause"]);
+                    }
 
-          done: function () {
-            console.log('done');
-            tick = null;
-          },
-        }, readBuffer);
-      }
+                    tick = _tick;
+                },
 
-      cmd(["init"]);
+                write: function (str) {
+                    app.ports.output.send(str);
+                    console.log(str);
+                },
+
+                done: function () {
+                    console.log('done');
+                    tick = null;
+                },
+            }, readBuffer);
+        }
+
+        cmd(["init"]);
     });
-    </script>
-    <footer class="bt ph3 ph4-ns mt1 mt4-ns b--light-gray spectral pv1">
-      <div class="container">
-        <p class="lh-copy w-50-ns">
-        ~ <a href="https://minond.xyz/" class="link red dim">Marcos Minond</a> (Angepasst für den TdB 2021)
-        </p>
-      </div>
-    </footer>
-  </body>
-<script>
-  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
-  ga('create', 'UA-102424562-1', 'auto');
-  ga('send', 'pageview');
 </script>
+<footer class="bt ph3 ph4-ns mt1 mt4-ns b--light-gray spectral pv1">
+    <div class="container">
+        <p class="lh-copy w-50-ns">
+            ~ <a href="https://minond.xyz/" class="link red dim">Marcos Minond</a> (Angepasst für den TdB 2021)
+        </p>
+    </div>
+</footer>
+</body>
 <script>
-  // snow
-  (function() {
-    var requestAnimationFrame = window.requestAnimationFrame || window.mozRequestAnimationFrame || window.webkitRequestAnimationFrame || window.msRequestAnimationFrame ||
-            function(callback) {
-              window.setTimeout(callback, 1000 / 60);
+    // snow
+    (function () {
+        window.requestAnimationFrame = window.requestAnimationFrame || window.mozRequestAnimationFrame || window.webkitRequestAnimationFrame || window.msRequestAnimationFrame ||
+            function (callback) {
+                window.setTimeout(callback, 1000 / 60);
             };
-    window.requestAnimationFrame = requestAnimationFrame;
-  })();
+    })();
 
 
-  var flakes = [],
-          canvas = document.getElementById("canvas"),
-          ctx = canvas.getContext("2d"),
-          flakeCount = 50,
-          mX = -100,
-          mY = -100
+    var flakes = [],
+        canvas = document.getElementById("canvas"),
+        ctx = canvas.getContext("2d"),
+        flakeCount = 50,
+        mX = -100,
+        mY = -100
 
-  canvas.width = window.innerWidth;
-  canvas.height = window.innerHeight;
-
-  function snow() {
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
-
-    for (var i = 0; i < flakeCount; i++) {
-      var flake = flakes[i],
-              x = mX,
-              y = mY,
-              minDist = 150,
-              x2 = flake.x,
-              y2 = flake.y;
-
-      var dist = Math.sqrt((x2 - x) * (x2 - x) + (y2 - y) * (y2 - y)),
-              dx = x2 - x,
-              dy = y2 - y;
-
-      if (dist < minDist) {
-        var force = minDist / (dist * dist),
-                xcomp = (x - x2) / dist,
-                ycomp = (y - y2) / dist,
-                deltaV = force / 2;
-
-        flake.velX -= deltaV * xcomp;
-        flake.velY -= deltaV * ycomp;
-
-      } else {
-        flake.velX *= .98;
-        if (flake.velY <= flake.speed) {
-          flake.velY = flake.speed
-        }
-        flake.velX += Math.cos(flake.step += .05) * flake.stepSize;
-      }
-
-      ctx.fillStyle = "rgba(230,230,230," + flake.opacity + ")";
-      flake.y += flake.velY;
-      flake.x += flake.velX;
-
-      if (flake.y >= canvas.height || flake.y <= 0) {
-        reset(flake);
-      }
-
-
-      if (flake.x >= canvas.width || flake.x <= 0) {
-        reset(flake);
-      }
-
-      ctx.beginPath();
-      ctx.arc(flake.x, flake.y, flake.size, 0, Math.PI * 2);
-      ctx.fill();
-    }
-    requestAnimationFrame(snow);
-  };
-
-  function reset(flake) {
-    flake.x = Math.floor(Math.random() * canvas.width);
-    flake.y = 0;
-    flake.size = (Math.random() * 3) + 2;
-    flake.speed = (Math.random() * 1) + 0.5;
-    flake.velY = flake.speed;
-    flake.velX = 0;
-    flake.opacity = (Math.random() * 0.5) + 0.3;
-  }
-
-  function init() {
-    for (var i = 0; i < flakeCount; i++) {
-      var x = Math.floor(Math.random() * canvas.width),
-              y = Math.floor(Math.random() * canvas.height),
-              size = (Math.random() * 3) + 2,
-              speed = (Math.random() * 1) + 0.5,
-              opacity = (Math.random() * 0.5) + 0.3;
-
-      flakes.push({
-        speed: speed,
-        velY: speed,
-        velX: 0,
-        x: x,
-        y: y,
-        size: size,
-        stepSize: (Math.random()) / 30,
-        step: 0,
-        opacity: opacity
-      });
-    }
-
-    snow();
-  };
-
-  canvas.addEventListener("mousemove", function(e) {
-    mX = e.clientX,
-            mY = e.clientY
-  });
-
-  window.addEventListener("resize",function(){
     canvas.width = window.innerWidth;
     canvas.height = window.innerHeight;
-  })
 
-  init();
+    function snow() {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+        for (var i = 0; i < flakeCount; i++) {
+            var flake = flakes[i],
+                x = mX,
+                y = mY,
+                minDist = 150,
+                x2 = flake.x,
+                y2 = flake.y;
+
+            var dist = Math.sqrt((x2 - x) * (x2 - x) + (y2 - y) * (y2 - y)),
+                dx = x2 - x,
+                dy = y2 - y;
+
+            if (dist < minDist) {
+                var force = minDist / (dist * dist),
+                    xcomp = (x - x2) / dist,
+                    ycomp = (y - y2) / dist,
+                    deltaV = force / 2;
+
+                flake.velX -= deltaV * xcomp;
+                flake.velY -= deltaV * ycomp;
+
+            } else {
+                flake.velX *= .98;
+                if (flake.velY <= flake.speed) {
+                    flake.velY = flake.speed
+                }
+                flake.velX += Math.cos(flake.step += .05) * flake.stepSize;
+            }
+
+            ctx.fillStyle = "rgba(230,230,230," + flake.opacity + ")";
+            flake.y += flake.velY;
+            flake.x += flake.velX;
+
+            if (flake.y >= canvas.height || flake.y <= 0) {
+                reset(flake);
+            }
+
+
+            if (flake.x >= canvas.width || flake.x <= 0) {
+                reset(flake);
+            }
+
+            ctx.beginPath();
+            ctx.arc(flake.x, flake.y, flake.size, 0, Math.PI * 2);
+            ctx.fill();
+        }
+        requestAnimationFrame(snow);
+    }
+
+    function reset(flake) {
+        flake.x = Math.floor(Math.random() * canvas.width);
+        flake.y = 0;
+        flake.size = (Math.random() * 3) + 2;
+        flake.speed = (Math.random()) + 0.5;
+        flake.velY = flake.speed;
+        flake.velX = 0;
+        flake.opacity = (Math.random() * 0.5) + 0.3;
+    }
+
+    function init() {
+        for (var i = 0; i < flakeCount; i++) {
+            var x = Math.floor(Math.random() * canvas.width),
+                y = Math.floor(Math.random() * canvas.height),
+                size = (Math.random() * 3) + 2,
+                speed = (Math.random()) + 0.5,
+                opacity = (Math.random() * 0.5) + 0.3;
+
+            flakes.push({
+                speed: speed,
+                velY: speed,
+                velX: 0,
+                x: x,
+                y: y,
+                size: size,
+                stepSize: (Math.random()) / 30,
+                step: 0,
+                opacity: opacity
+            });
+        }
+
+        snow();
+    }
+
+    canvas.addEventListener("mousemove", function (e) {
+        mX = e.clientX
+        mY = e.clientY
+    });
+
+    window.addEventListener("resize", function () {
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+    })
+
+    init();
 </script>
 </html>
