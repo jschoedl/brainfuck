@@ -5474,6 +5474,7 @@ var $author$project$Main$update = F2(
 					$elm$core$Platform$Cmd$none);
 		}
 	});
+var $elm$html$Html$canvas = _VirtualDom_node('canvas');
 var $elm$html$Html$Attributes$stringProperty = F2(
 	function (key, string) {
 		return A2(
@@ -6243,6 +6244,13 @@ var $author$project$Main$view = function (model) {
 					]),
 				_List_fromArray(
 					[
+						A2(
+						$elm$html$Html$canvas,
+						_List_fromArray(
+							[
+								$elm$html$Html$Attributes$id('canvas')
+							]),
+						_List_Nil),
 						$author$project$Main$editorTitle,
 						A2(
 						$elm$html$Html$div,

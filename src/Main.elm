@@ -3,7 +3,7 @@ port module Main exposing (main)
 import Array
 import Browser exposing (Document)
 import Debug exposing (toString)
-import Html exposing (Attribute, Html, a, button, code, div, h1, input, option, p, section, select, span, text, textarea)
+import Html exposing (Attribute, Html, a, button, canvas, code, div, h1, input, option, p, section, select, span, text, textarea)
 import Html.Attributes exposing (class, classList, href, id, spellcheck, type_, value)
 import Html.Events exposing (on, onClick, onInput)
 import Json.Decode as Json
@@ -206,7 +206,8 @@ view : Model -> Document Msg
 view model =
     { title = "Brainf🌲ck"
     , body= [div [ class "cf pa3 pa4-ns container helvetica" ]
-        [ editorTitle
+        [ canvas [ id "canvas" ] []
+        , editorTitle
         , div
             [ class "fl w-100 w-50-ns editor-section" ]
             [ section [] <| editorProgram model ]
