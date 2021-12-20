@@ -186,9 +186,14 @@
     /* snow */
     canvas{
       position:absolute;top:0;left:0;
-      z-index: 1;
+      z-index: -1;
       width: 100%;
       height: 100%;
+    }
+
+    .w-50, .mb3, .pointer {
+      z-index: 2;
+      position: relative;
     }
     </style>
   </head>
@@ -454,7 +459,7 @@
         flake.velX += Math.cos(flake.step += .05) * flake.stepSize;
       }
 
-      ctx.fillStyle = "rgba(200,200,200," + flake.opacity + ")";
+      ctx.fillStyle = "rgba(230,230,230," + flake.opacity + ")";
       flake.y += flake.velY;
       flake.x += flake.velX;
 
