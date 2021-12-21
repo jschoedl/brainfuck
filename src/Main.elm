@@ -360,7 +360,7 @@ editorOutput model =
             ]
         , lbl "geklaute Geschenke"
         , div
-            [ class "pb2 mb2" ]
+            [ class "pb2 mb2 output" ]
             [ mono output_ ]
         ]
 

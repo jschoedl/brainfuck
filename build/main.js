@@ -6174,7 +6174,7 @@ var $author$project$Main$editorOutput = function (model) {
 			$elm$html$Html$div,
 			_List_fromArray(
 				[
-					$elm$html$Html$Attributes$class('pb2 mb2')
+					$elm$html$Html$Attributes$class('pb2 mb2 output')
 				]),
 			_List_fromArray(
 				[
